@@ -88,3 +88,28 @@ $i++;
 </li>
 <li class="page-item"><a class="page-link" href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
 
+
+
+
+
+
+
+
+
+else {
+            $name = $_POST["name"];
+            $desc = $_POST["description"];
+            $category = $_POST["category"];
+            $qty = $_POST["quantity"];
+            $price = $_POST["price"];
+    
+            $stmt = $pdo -> prepare("UPDATE products SET name = :name , description = :description , category_id = :category, price = :price, quantity = :quantity");
+    
+            $result = $stmt->execute(
+                array(":name" => $name, ":description" => $desc, ":category" => $category, ":price" => $price, ":quantity" => $qty)
+            );
+    
+            if($result) {
+                echo "<script>alert('Product Added');window.location.href='index.php';</script>";
+            }
+        }

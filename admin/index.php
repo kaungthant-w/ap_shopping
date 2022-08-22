@@ -99,7 +99,8 @@ if(isset($_POST["search"])) {
                         <td class="text-center"><img src="./images/<?php echo escape($value['image']); ?>" alt="" class="  rounded-circle mb-3" style="width:50px;height:50px;"></td>
                         <td><?php echo escape(substr($value["description"],0,30)); ?></td>
                         <td><?php echo escape($catResult[0]["name"]); ?></td>
-                        <td><?php echo escape($value["quantity"]); ?></td>
+                        <td>
+                          <span class="badge badge-danger px-3 py-1"><?php echo escape($value["quantity"]); ?></span></td>
                         <td><?php echo escape($value["price"]); ?></td>
                         <td>
                           <div class="btn-group">

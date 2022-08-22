@@ -46,7 +46,7 @@ if($_POST) {
 <body class="hold-transition login-page">
   <div class="login-box">
     <div class="login-logo">
-      <a href="index2.html"><b>AP Shopping </b>Admin Panel</a>
+      <a href="login.php"><b>AP Shopping </b>Admin Panel</a>
     </div>
     <div class="card">
       <div class="card-body login-card-body">

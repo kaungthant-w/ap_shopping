@@ -91,19 +91,6 @@ if(isset($_POST["search"])) {
             </table>
           </div>
         <!-- /.card-body -->
-        <div class="card-footer clearfix">
-          <ul class="pagination pagination-sm m-0 float-right">
-            <li class="page-item"><a class="page-link" href="?pageno=1">First</a></li>
-            <li class="page-item <?php if($pageno <= 1){echo "disabled";} ?>">
-            <a class="page-link" href="<?php if($pageno <= 1 ){echo "#";}else{echo "?pageno=".($pageno-1);} ?>">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#"><?php echo $pageno; ?></a></li>
-            <li class="page-item <?php if($pageno >= $total_pages){echo "disabled";} ?>">
-            <a class="page-link" href="<?php if($pageno >= $total_pages){echo "#";}else{echo "?pageno=".($pageno+1);} ?>">Next</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
-          </ul>
-        </div>
       </div>
     </div>
   </div>

@@ -53,7 +53,7 @@ if(isset($_POST["search"])) {
             ?>
 
           <div class="card-body">
-            <a href="cat_add.php" class="btn btn-success mb-3">New Order</a>
+            <!-- <a href="cat_add.php" class="btn btn-success mb-3">New Order</a> -->
             <table class="table table-bordered">
               <thead>
                 <tr>

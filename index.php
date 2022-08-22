@@ -98,7 +98,7 @@
 													<span class="ti-bag"></span>
 													<p class="hover-text">add to bag</p>
 												</a>
-												<a href="" class="social-info">
+												<a href="product_detail.php?id=<?php echo $value['id'] ?>" class="social-info">
 													<span class="lnr lnr-move"></span>
 													<p class="hover-text">view more</p>
 												</a>

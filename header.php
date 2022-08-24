@@ -21,9 +21,7 @@
 	<!-- Site Title -->
 	<title>AP Shopping</title>
 
-	<!--
-            CSS
-            ============================================= -->
+	<!--CSS ============================================= -->
 	<link rel="stylesheet" href="css/linearicons.css">
 	<link rel="stylesheet" href="css/owl.carousel.css">
 	<link rel="stylesheet" href="css/font-awesome.min.css">

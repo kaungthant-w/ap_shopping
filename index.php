@@ -1,8 +1,22 @@
+
+<?php
+	session_start();	
+	require "config/config.php";
+?>
+
+<?php
+	if(isset($_POST["search"])) {
+		setcookie('search', $_POST['search'], time() + (86400 * 30), "/");
+	} else {
+		if(empty($_GET["pageno"])) {
+		unset($_COOKIE["search"]);
+		setcookie('search', null, -1, '/');
+		}
+	}
+?>
 <?php include('header.php') ?>
 
 <?php
-	
-	require "config/config.php";
 
 	if(!empty($_GET['pageno'])) {
 		$pageno = $_GET['pageno'];
@@ -12,15 +26,29 @@
 	$numOfrecs = 5;
 	$offset = ($pageno - 1) * $numOfrecs;
 	if(empty($_POST['search']) && empty($_COOKIE["search"])) {
-		$stmt = $pdo -> prepare("SELECT * FROM products ORDER BY id DESC");
-		$stmt -> execute();
-		$rawResult = $stmt -> fetchAll();
-		$total_pages = ceil(count($rawResult) / $numOfrecs);
 
-		$stmt = $pdo -> prepare("SELECT * FROM products ORDER BY id DESC LIMIT $offset,$numOfrecs");
-		$stmt -> execute();
-		$result = $stmt -> fetchAll();
+		if (!empty($_GET['category_id'])) {
+			$categoryId = $_GET['category_id'];
+			$stmt = $pdo->prepare("SELECT * FROM products WHERE category_id=$categoryId ORDER BY id DESC");
+			$stmt->execute();
+			$rawResult = $stmt->fetchAll();
 
+			$total_pages = ceil(count($rawResult) / $numOfrecs);
+
+			$stmt = $pdo->prepare("SELECT * FROM products WHERE category_id=$categoryId ORDER BY id DESC LIMIT $offset,$numOfrecs");
+			$stmt->execute();
+			$result = $stmt->fetchAll();
+		}else{
+			$stmt = $pdo->prepare("SELECT * FROM products ORDER BY id DESC");
+			$stmt->execute();
+			$rawResult = $stmt->fetchAll();
+
+			$total_pages = ceil(count($rawResult) / $numOfrecs);
+
+			$stmt = $pdo->prepare("SELECT * FROM products ORDER BY id DESC LIMIT $offset,$numOfrecs");
+			$stmt->execute();
+			$result = $stmt->fetchAll();
+		}
 	}else{
 		
 		$searchKey = isset($_POST['search']) ? $_POST["search"] : $_COOKIE['search'];
@@ -38,30 +66,30 @@
 ?>
 
 <div class="container">
-		<div class="row">
-			<div class="col-xl-3 col-lg-4 col-md-5">
-				<div class="sidebar-categories">
-					<div class="head">Browse Categories</div>
-					<ul class="main-categories">
-						<li class="main-nav-list">
+	<div class="row">
+		<div class="col-xl-3 col-lg-4 col-md-5">
+			<div class="sidebar-categories">
+				<div class="head">Browse Categories</div>
+				<ul class="main-categories">
+					<li class="main-nav-list">
 
-						<?php
-							$catStmt = $pdo -> prepare("SELECT * FROM categories ORDER BY id DESC");
-							$catStmt -> execute();
-							$catResult = $catStmt -> fetchAll();
-						?>
+					<?php
+						$catStmt = $pdo -> prepare("SELECT * FROM categories ORDER BY id DESC");
+						$catStmt -> execute();
+						$catResult = $catStmt -> fetchAll();
+					?>
 
-						<?php foreach($catResult as $key => $value) {?> 
-							<a data-toggle="collapse"><span class="lnr lnr-arrow-right "></span><?php echo escape($value["name"]); ?></a>
-						<?php } ?>
-						
-						</li>
-					</ul>
-				</div>
+					<?php foreach($catResult as $key => $value) {?> 
+						<a  href="index.php?category_id=<?php echo $value['id']?>"><span class="lnr lnr-arrow-right "></span><?php echo escape($value["name"]); ?></a>
+					<?php } ?>
+					
+					</li>
+				</ul>
 			</div>
-			<div class="col-xl-9 col-lg-8 col-md-7">
-			<div class="filter-bar d-flex flex-wrap justify-center">
-				<div class="pagination text-center">
+		</div>
+		<div class="col-xl-9 col-lg-8 col-md-7">
+		<div class="filter-bar d-flex flex-wrap justify-center">
+			<div class="pagination text-center">
 					<li class="page-item"><a class="page-link pr-5" href="?pageno=1">First</a></li>
 
 					<li class="page-item"><a <?php if($pageno >= $total_pages){echo "disabled";} ?>
@@ -75,42 +103,42 @@
 					</li>
 
 					<li class="page-item "><a class="page-link pr-5" href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
-				</div>
 			</div>
-			<!-- Start Best Seller -->
-			<section class="lattest-product-area pb-40 category-list">
-				<div class="row">
-					<!-- single product -->
-					<?php 
-						if($result) {
-							foreach($result as $key => $value) {?>
-								<div class="col-lg-4 col-md-6">
-									<div class="single-product w-100 h-100">
-										<img class="img-fluid w-100 h-50" src="admin/images/<?php echo escape($value["image"]) ?>" alt="">
-										<div class="product-details">
-											<h6><?php echo escape($value["name"]); ?></h6>
-											<div class="price">
-												<h6><?php echo escape($value["price"]); ?></h6>
-											</div>
-											<div class="prd-bottom">
+		</div>
+		<!-- Start Best Seller -->
+		<section class="lattest-product-area pb-40 category-list">
+			<div class="row">
+				<!-- single product -->
+				<?php 
+					if($result) {
+						foreach($result as $key => $value) {?>
+							<div class="col-lg-4 col-md-6">
+								<div class="single-product w-100 h-100">
+									<a href="product_detail.php?id=<?php echo $value['id'] ?>"><img class="img-fluid w-100 h-50" src="admin/images/<?php echo escape($value["image"]) ?>" alt=""></a>
+									<div class="product-details">
+										<h6><?php echo escape($value["name"]); ?></h6>
+										<div class="price">
+											<h6><?php echo escape($value["price"]); ?></h6>
+										</div>
+										<div class="prd-bottom">
 
-												<a href="" class="social-info">
-													<span class="ti-bag"></span>
-													<p class="hover-text">add to bag</p>
-												</a>
-												<a href="product_detail.php?id=<?php echo $value['id'] ?>" class="social-info">
-													<span class="lnr lnr-move"></span>
-													<p class="hover-text">view more</p>
-												</a>
-											</div>
+											<a href="" class="social-info">
+												<span class="ti-bag"></span>
+												<p class="hover-text">add to bag</p>
+											</a>
+											<a href="product_detail.php?id=<?php echo $value['id'] ?>" class="social-info">
+												<span class="lnr lnr-move"></span>
+												<p class="hover-text">view more</p>
+											</a>
 										</div>
 									</div>
 								</div>
-							<?php 
-							}
+							</div>
+						<?php 
 						}
-					?>
-				</div>
-			</section>
+					}
+				?>
+			</div>
+		</section>
 <!-- End Best Seller -->
 <?php include('footer.php');?>

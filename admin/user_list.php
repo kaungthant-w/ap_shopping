@@ -78,6 +78,7 @@ if(isset($_POST["search"])) {
                 <th style="width: 10px">#</th>
                 <th>user</th>
                 <th>Email</th>
+                <th>phone</th>
                 <th>Role</th>
                 <th style="width: 40px">Actions</th>
               </tr>
@@ -100,6 +101,7 @@ if(isset($_POST["search"])) {
                 <td>
                 <?php echo escape(substr($value["email"],0,50)); ?>
                 </td>
+                <td><?php echo escape($value["phone"]); ?></td>
                 <td><?php echo $value["role"]; ?></td>
                 <td>
                   <div class="btn-group">

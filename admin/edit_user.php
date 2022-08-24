@@ -12,12 +12,16 @@
     }
 
     if($_POST) {
-      if(empty($_POST["name"]) || empty($_POST["email"])) {
+      if(empty($_POST["name"]) || empty($_POST["email"]) || empty($_POST["phone"])) {
         if(empty($_POST["name"])) {
           $nameError = 'name cannot be empty';
         }
         if(empty($_POST["email"])) {
           $emailError = "email cannot be empty";
+        }
+
+        if(empty($_POST["phone"])) {
+          $phoneError = "phone cannot be empty";
         }
       } elseif (!empty($_POST["password"]) && strlen($_POST['password']) < 4) {
         $passwordError = "Password should be 4 characters at least";
@@ -26,6 +30,7 @@
         $id = $_POST["id"];
         $name = $_POST["name"];
         $email = $_POST["email"];
+        $phone = $_POST["phone"];
         $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
         if(empty($_POST["role"])) {
@@ -41,7 +46,7 @@
         if($user){
             echo "<script>alert('Email duplicated')</script>";
         } else {
-          $stmt = $pdo -> prepare("UPDATE users SET name='$name', email='$email', role='$role' WHERE id='$id'");
+          $stmt = $pdo -> prepare("UPDATE users SET name='$name', email='$email', phone='$phone', role='$role' WHERE id='$id'");
           $result = $stmt -> execute();
           if($result) {
               echo "<script>alert('Successfully Updated.');window.location.href='user_list.php';</script>";
@@ -74,6 +79,11 @@
                   <div class="form-group">
                       <label for="email">email</label><span class="text-danger ml-3"><?php echo empty($emailError) ? '': "*".$emailError; ?></span>
                       <input type="email" name="email" id="email" class="form-control" value="<?php echo escape($result[0]['email']); ?>">
+                  </div>
+
+                  <div class="form-group">
+                      <label for="phone">phone</label><span class="text-danger ml-3"><?php echo empty($phoneError) ? '': "*".$phoneError; ?></span>
+                      <input type="number" name="phone" id="phone" class="form-control" value="<?php echo escape($result[0]['phone']); ?>">
                   </div>
 
                   <div class="form-group">

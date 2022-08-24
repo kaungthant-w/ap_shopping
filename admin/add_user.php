@@ -14,12 +14,16 @@ if($_SESSION["role"] != 1) {
 include "header.php";
 
 if($_POST) {
-  if(empty($_POST["name"]) || empty($_POST["email"]) || empty($_POST["password"]) || strlen($_POST['password']) < 4) {
+  if(empty($_POST["name"]) || empty($_POST["email"]) || empty($_POST["password"]) || empty($_POST["phone"]) || strlen($_POST['password']) < 4) {
     if(empty($_POST["name"])) {
       $nameError = 'name cannot be empty';
     }
     if(empty($_POST["email"])) {
       $emailError = "email cannot be empty";
+    }
+
+    if(empty($_POST["phone"])) {
+      $phoneError = "phone cannot be empty";
     }
 
     if(empty($_POST["password"])) {
@@ -32,6 +36,7 @@ if($_POST) {
   }else{
     $name = $_POST["name"];
     $email = $_POST["email"];
+    $phone = $_POST["phone"];
     $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
     if(empty($_POST["role"])) {
@@ -49,10 +54,10 @@ if($_POST) {
     if($user) {
       echo "<script>alert('Email duplicated!')</script>";
     } else {
-      $stmt = $pdo -> prepare("INSERT INTO users(name, email, password, role)VALUES(:name, :email, :password, :role)");
+      $stmt = $pdo -> prepare("INSERT INTO users(name, email, phone, password, role)VALUES(:name, :email, :phone, :password, :role)");
 
       $result = $stmt -> execute(
-          array(':name' => $name, ':email' => $email, ':password' => $password, ':role' => $role)
+          array(':name' => $name, ':email' => $email, ':phone' => $phone , ':password' => $password, ':role' => $role)
       );
 
       if($result) {
@@ -82,6 +87,11 @@ if($_POST) {
               <div class="form-group">
                 <label for="email">email</label><span class="text-danger ml-3"><?php echo empty($emailError) ? '': "*".$emailError; ?></span>
                 <input type="email" name="email" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <label for="name">Phone</label><span class="text-danger ml-3"><?php echo empty($phoneError) ? '': "*".$phoneError; ?></span>
+                <input type="text" name="phone" class="form-control">
               </div>
 
               <div class="form-group">

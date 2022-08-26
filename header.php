@@ -1,6 +1,6 @@
 <?php
 	// session_start();
-	require "config/common.php";
+	require_once "config/common.php";
 ?>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
@@ -32,7 +32,7 @@
 	<link rel="stylesheet" href="css/main.css">
 </head>
 
-<body id="category">
+<body id="category my-0">
 
 	<!-- Start Header Area -->
 	<header class="header_area sticky-header">
@@ -47,10 +47,24 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
+
+					<?php 
+						$cart = 0;
+						if(isset($_SESSION["cart"])) {
+							foreach($_SESSION["cart"] as $key => $qty){
+								$cart += $qty;
+							}
+						}
+					?>
+					
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav navbar-right">
-							<li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
+							<li class="nav-item position-relative"><a href="#" class="cart">
+								<a href="cart.php">
+								<span class="ti-bag"><div class="badge position-absolute badge-danger"><?php echo $cart; ?></div></span></a>
+								</a>
+							</li>
 							<li class="nav-item">
 								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
 							</li>

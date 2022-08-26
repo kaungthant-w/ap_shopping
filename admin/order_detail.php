@@ -68,9 +68,9 @@ if(isset($_POST["search"])) {
                     $i = 1;
                     foreach($result as $value ) { ?>
                    <?php
-                        $pStmt = $pdo -> prepare("SELECT * FROM categories WHERE id=".$value['product_id']);
-                        $pStmt -> execute();
-                        $pResult = $pStmt -> fetchAll();
+                        $pStmt = $pdo->prepare("SELECT * FROM products WHERE id=".$value['product_id']);
+                        $pStmt->execute();
+                        $pResult = $pStmt->fetchAll();
                         
                       ?>
 

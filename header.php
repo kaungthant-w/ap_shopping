@@ -91,7 +91,8 @@
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 				<div class="col-first">
-					<h1>Welcome</h1>
+					<h1>Welcome <span class="badge badge-danger badge-pill"><?php echo escape($_SESSION["username"]); ?></span> </h1>
+					<a href="logout.php" class="btn btn-small btn-warning border">Logout</a>
 
 				</div>
 			</div>

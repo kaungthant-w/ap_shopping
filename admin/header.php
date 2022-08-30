@@ -130,7 +130,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="royal_cus.php" class="nav-link ">
+                <a href="royal_user.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Royal Cutomers</p>
                 </a>

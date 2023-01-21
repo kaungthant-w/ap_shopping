@@ -66,7 +66,7 @@ if(isset($_POST["search"])) {
             ?>
 
           <div class="card-body">
-            <a href="product_add.php" class="btn btn-success mb-3">Create New Product</a>
+            <a href="product_add.php" class="btn btn-success mb-3">New Product</a>
             <table class="table table-bordered">
               <thead>
                 <tr>

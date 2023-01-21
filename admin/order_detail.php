@@ -76,10 +76,25 @@ if(isset($_POST["search"])) {
 
                         <tr>
                             <td><?php echo $i; ?></td>
-                            <td><?php echo escape($pResult[0]['name']); ?></td>
-                            <td><?php echo escape($value["quantity"]); ?></td>
+                            <td>
+                            <?php
+                              if(isset($pResult[0]['name'])){
+                                echo escape($pResult[0]['name']);
+                              }else{
+                                echo "name is empty";
+                              } 
+                              ?>
+                            </td>
+                            <td>
+                              <?php
+                                if(isset($value["quantity"])){
+                                  echo escape($value["quantity"]);
+                                }else{
+                                  echo "quantity is empty";
+                                }
+                              ?>
+                            </td>
                             <td><?php echo escape(date("Y-m-d",strtotime($value["order_date"]))); ?></td>
-
                         </tr>
 
                   <?php

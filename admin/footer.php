@@ -2,7 +2,7 @@
     <div class="float-right d-none d-sm-inline">
       <a href="logout.php" class="btn btn-default">Logout</a>
     </div>
-    <strong>Copyright &copy; 2022 <a href="#">A Programmer</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2022 <a href="#">Kyaw Myo Thant</a>.</strong> All rights reserved.
   </footer>
 </div>
 

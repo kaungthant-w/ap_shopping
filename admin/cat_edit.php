@@ -24,10 +24,16 @@
         $name = $_POST["name"];
         $description = $_POST["description"];
 
-          $stmt = $pdo -> prepare("UPDATE categories SET name='$name', description='$description' WHERE id='$id'");
+          $stmt = $pdo -> prepare("UPDATE categories SET name=:name, description=:description WHERE id=:id");
           $result = $stmt -> execute(
             array(":name" => $name, ":description" => $description, ":id" => $id)
           );
+
+          // $stmt = $pdo->prepare("UPDATE categories SET name=?, description=? WHERE id=?");
+          // $stmt->bindParam(1, $name);
+          // $stmt->bindParam(2, $description);
+          // $stmt->bindParam(3, $id);
+          // $result = $stmt->execute();
           if($result) {
               echo "<script>alert('Successfully Updated.');window.location.href='category.php';</script>";
           }

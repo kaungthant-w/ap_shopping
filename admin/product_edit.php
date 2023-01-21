@@ -61,7 +61,7 @@ if($_POST) {
 
             move_uploaded_file($_FILES["image"]["tmp_name"], $file);
 
-            $stmt = $pdo -> prepare("UPDATE products SET name = '$name' , description = '$desc' , category_id = '$category', price = '$price', quantity = '$qty' , image = '$image' WHERE id='$id'");
+            $stmt = $pdo -> prepare("UPDATE products SET name = :name , description = :description , category_id = :category, price = :price, quantity = :quantity , image = :image WHERE id=:id");
 
             $result = $stmt->execute(
                 array(":name" => $name, ":description" => $desc, ":category" => $category, ":price" => $price, ":quantity" => $qty, ":image" => $image, ":id" => $id)
@@ -79,7 +79,7 @@ if($_POST) {
         $qty = $_POST["quantity"];
         $price = $_POST["price"];
 
-        $stmt = $pdo -> prepare("UPDATE products SET name = '$name' , description = '$desc' , category_id = '$category', price = '$price', quantity = '$qty' WHERE id='$id'");
+        $stmt = $pdo -> prepare("UPDATE products SET name = :name , description = :description , category_id = :category, price = :price, quantity = :quantity WHERE id=:id");
 
         $result = $stmt->execute(
             array(":name" => $name, ":description" => $desc, ":category" => $category, ":price" => $price, ":quantity" => $qty, ":id" => $id)

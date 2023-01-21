@@ -63,7 +63,15 @@ if(isset($_POST["search"])) {
                       ?>
                       <tr>
                         <td><?php echo $i; ?></td>
-                        <td><?php echo escape($userResult[0]['name']); ?></td>
+                        <td>
+                          <?php 
+                            if(isset($userResult[0]['name'])){
+                              echo escape($userResult[0]['name']);
+                            }else{
+                              echo "No data available in table";
+                            }
+                          ?>
+                        </td>
                       </tr>
 
                   <?php
